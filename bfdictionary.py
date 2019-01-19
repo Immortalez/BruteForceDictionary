@@ -1,8 +1,7 @@
 
 characters = "abcdefghijklmnopqrstuwxyz"
 length = 5
-
-for i in range(length ** len(characters)):
-    print(i)
+combinations = len(characters) ** length  # Stores the amount of possible combinations
+print("Possible combinations: {}".format(combinations))
 
 

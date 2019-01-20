@@ -1,18 +1,29 @@
 import sys  # sys.exit()
-import time  # time.sleep()
-# import threading
+import time  # time.sleep(), time.time()
+# import threading  # No multithreading for now
 # from threading import Thread  # checking if function is alive
 
 #  Stores the direction for saving the combinations
 saving_dir = "dictionary.txt"
+
+# String that every combination starts with
+starting_with = ""
+
+# Might be a really huge data [!]
+# In the end stores all the combinations
+# As this is probably better than calling save to file millions of times
+generated_list = []
 
 # Predefined charsets
 charset1 = "abcdefghijklmnopqrstuvwxyz"
 charset2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 charset3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 custom_charset = ""
+
+# Stores the amount of total combinations to be generated
+# Will be used in the future with multithreading to present
+# a progress bar
 amount_to_be_generated = 1
-starting_with = ""  # String that every combination starts with
 
 
 def cls(n=60):
@@ -59,7 +70,8 @@ def generate_combinations(ch_set, comb_length, current_comb=starting_with, dir=s
 
     if comb_length == 0:
         # Current combination reached its target length, print the combination
-        print(current_comb)  # TODO: Comment out when done
+        # print(current_comb)
+        generated_list.append(current_comb)
         return
 
     ch_set_len = len(ch_set)
@@ -137,6 +149,7 @@ def menu_generate_dictionary():
     print("     \t\t[ 2 ]\t" + charset2)
     print("     \t\t[ 3 ]\t" + charset3)
 
+    # Taking the input
     global custom_charset
     custom_charset = input("\n     \tEnter the charset:  ")
     if len(custom_charset) > 0:
@@ -154,15 +167,37 @@ def menu_generate_dictionary():
     maxlen = int(input("     \tMaximal length: "))
     cls(2)
 
+    # Printing information about the generation process
     global amount_to_be_generated
     amount_to_be_generated = combinations_amount(custom_charset, minlen, maxlen)
     print("     \tTotal amount of combinations: {}".format(amount_to_be_generated))
-    print("\n     \tProgram will go back to the menu when finished.")
+    print("\n     \tStatistics will be shown when finished. This might take a while.")
     time.sleep(0.5)
     print("     \tGenerating the dictionary...")
 
+    # Truncating the file content if exists
+    f = open(saving_dir, 'w')
+    f.close()
+
+    # Saving the contents to the file
+    t0 = time.time()  # For counting the time needed to process the data
     generate_var_length_combinations(custom_charset, minlen, maxlen, saving_dir)
-    input("Press ENTER to continue.")
+    tg = time.time()  # For counting the time needed to process the data
+    with open(saving_dir, 'a') as dic_file:
+        for comb in generated_list:
+            print(comb, file=dic_file)
+    ts = time.time()  # For counting the time needed to save the data
+
+    # Printing statistics
+    print("     \tSTATISTICS ")
+    print("     \t    Generating time: {:.2f}s".format(tg - t0))
+    print("     \t        Saving time: {:.2f}s".format(ts - tg))
+    print("-" * 40)
+    print("     \t         TOTAL TIME: {:.2f}s".format(ts - t0))
+
+    print("      The file will become visible after exiting the program.")
+
+    input("\n             Press ENTER to continue.")
 
 
 def menu_change_directory():
@@ -215,5 +250,3 @@ ch = ""
 while ch != "0":
     my_switch_menu(menu())
 
-
-#  TODO: Saving the combinations to file

@@ -6,6 +6,10 @@ My first project in Python (started learning it literally yesterday [19.01.19]),
 Program generates all possible combinations out of given character set, within given length interval.
 The combinations are saved to a text file, each in a separate line.
 
+### Future Features
+* When the time comes I'll probably practise multithreading to show progress bar during the generation process
+* Maybe with the multithreading practises some optimization will come that would speed up the whole process
+
 ### Program Preview
 ![alt text](https://i.imgur.com/V35fgoc.png "Main Menu")
 ![alt text](https://i.imgur.com/Rjml5y8.png "Generation completed")

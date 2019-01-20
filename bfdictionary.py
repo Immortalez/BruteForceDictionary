@@ -1,7 +1,7 @@
 import sys  # sys.exit()
 import time  # time.sleep()
-import threading
-#from threading import Thread  # checking if function is alive
+# import threading
+# from threading import Thread  # checking if function is alive
 
 #  Stores the direction for saving the combinations
 saving_dir = "dictionary.txt"

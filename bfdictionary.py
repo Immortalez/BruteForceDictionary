@@ -1,11 +1,12 @@
-import os
+import sys  # sys.exit()
 
 #  Stores the direction for saving the combinations
 savingDir = "dictionary.txt"
 
 
-def cls():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def cls(n=60):
+    for i in range(60):
+        print()
 
 
 def combinations_amount(ch_set, min_len, max_len):
@@ -70,35 +71,55 @@ def generate_var_length_combinations(ch_set, min_len, max_len):
 
 
 def menu():
-    cls()
     choice = "-1"
-    print("""                                                                      
-        ,-----.                   ,--.             ,------.                           
-        |  |) /_ ,--.--.,--.,--.,-'  '-. ,---.     |  .---',---. ,--.--. ,---. ,---.  
-        |  .-.  \|  .--'|  ||  |'-.  .-'| .-. :    |  `--,| .-. ||  .--'| .--'| .-. : 
-        |  '--' /|  |   '  ''  '  |  |  \   --.    |  |`  ' '-' '|  |   \ `--.\   --. 
-        `------' `--'    `----'   `--'   `----'    `--'    `---' `--'    `---' `----' 
-            ,------.  ,--.        ,--.  ,--.                                          
-            |  .-.  \ `--' ,---.,-'  '-.`--' ,---. ,--,--,  ,--,--.,--.--.,--. ,--.   
-            |  |  \  :,--.| .--''-.  .-',--.| .-. ||      \\' ,-.  ||  .--' \  '  /    
-            |  '--'  /|  |\ `--.  |  |  |  |' '-' '|  ||  |\ '-'  ||  |     \   '     
-            `-------' `--' `---'  `--'  `--' `---' `--''--' `--`--'`--'   .-'  /      
-                                                                          `---'
-                                                                          
-                [ 1 ]   Generate the dictionary
-                [ 2 ]   Change saving direction ({})
-                    
-                [ 0 ]   Exit 
-        """.format(savingDir))
-
     while not ("0" <= choice <= "2"):
+        cls()
+        print("""                                                                      
+            ,-----.                   ,--.             ,------.                           
+            |  |) /_ ,--.--.,--.,--.,-'  '-. ,---.     |  .---',---. ,--.--. ,---. ,---.  
+            |  .-.  \|  .--'|  ||  |'-.  .-'| .-. :    |  `--,| .-. ||  .--'| .--'| .-. : 
+            |  '--' /|  |   '  ''  '  |  |  \   --.    |  |`  ' '-' '|  |   \ `--.\   --. 
+            `------' `--'    `----'   `--'   `----'    `--'    `---' `--'    `---' `----' 
+                ,------.  ,--.        ,--.  ,--.                                          
+                |  .-.  \ `--' ,---.,-'  '-.`--' ,---. ,--,--,  ,--,--.,--.--.,--. ,--.   
+                |  |  \  :,--.| .--''-.  .-',--.| .-. ||      \\' ,-.  ||  .--' \  '  /    
+                |  '--'  /|  |\ `--.  |  |  |  |' '-' '|  ||  |\ '-'  ||  |     \   '     
+                `-------' `--' `---'  `--'  `--' `---' `--''--' `--`--'`--'   .-'  /      
+                                                                              `---'
+                                                                              
+                    [ 1 ]   Generate the dictionary
+                    [ 2 ]   Change saving direction ({})
+                        
+                    [ 0 ]   Exit 
+            """.format(savingDir))
         # TODO: Include the whole printout in the loop
         choice = input("\t\t\tYour choice:  ")
     return choice
 
-# chset = "abcdefghijklmnopqrstuwxyz"
-# generate_var_length_combinations(chset, 3, 5)
-ch = menu()
+
+def menu_generate_dictionary():
+    print("menu_generate_dictionary")
+
+
+def menu_change_directory():
+    print("menu_change_directory")
+
+
+def my_switch(c):
+    # Implementation of switch-case statement
+    # Not very efficient, but it will do for the purpose
+    if c == "0":
+        sys.exit(0)
+    elif c == "1":
+        menu_generate_dictionary()
+    elif c == "2":
+        menu_change_directory()
+
+
+ch = ""
+while ch != "0":
+    my_switch(menu())
+
 
 #  TODO: Finish the menu
 #  TODO: Saving the combinations to file

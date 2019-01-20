@@ -1,3 +1,11 @@
+import os
+
+#  Stores the direction for saving the combinations
+savingDir = "dictionary.txt"
+
+
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def combinations_amount(ch_set, min_len, max_len):
@@ -16,7 +24,7 @@ def combinations_amount(ch_set, min_len, max_len):
 
     ch_set_len = len(ch_set)
     total = 0
-    for i in range(min_len, max_len+1):
+    for i in range(min_len, max_len + 1):
         total += ch_set_len ** i
     return total
 
@@ -47,7 +55,7 @@ def generate_combinations(ch_set, comb_length, current_comb=""):
         # as we go one character by one
         # Therefore we end up with 'comb_length' amount of nested loops
         new_comb = current_comb + chset[i]
-        generate_combinations(ch_set, comb_length-1, new_comb)
+        generate_combinations(ch_set, comb_length - 1, new_comb)
 
 
 def generate_var_length_combinations(ch_set, min_len, max_len):
@@ -57,16 +65,40 @@ def generate_var_length_combinations(ch_set, min_len, max_len):
     :param max_len: maximal length of the combinations
     :return: None
     """
-    for i in range(min_len, max_len+1):
+    for i in range(min_len, max_len + 1):
         generate_combinations(ch_set, i)
 
 
-chset = "abcdefghijklmnopqrstuwxyz"
-generate_var_length_combinations(chset, 3, 5)
+def menu():
+    cls()
+    choice = "-1"
+    print("""                                                                      
+        ,-----.                   ,--.             ,------.                           
+        |  |) /_ ,--.--.,--.,--.,-'  '-. ,---.     |  .---',---. ,--.--. ,---. ,---.  
+        |  .-.  \|  .--'|  ||  |'-.  .-'| .-. :    |  `--,| .-. ||  .--'| .--'| .-. : 
+        |  '--' /|  |   '  ''  '  |  |  \   --.    |  |`  ' '-' '|  |   \ `--.\   --. 
+        `------' `--'    `----'   `--'   `----'    `--'    `---' `--'    `---' `----' 
+            ,------.  ,--.        ,--.  ,--.                                          
+            |  .-.  \ `--' ,---.,-'  '-.`--' ,---. ,--,--,  ,--,--.,--.--.,--. ,--.   
+            |  |  \  :,--.| .--''-.  .-',--.| .-. ||      \\' ,-.  ||  .--' \  '  /    
+            |  '--'  /|  |\ `--.  |  |  |  |' '-' '|  ||  |\ '-'  ||  |     \   '     
+            `-------' `--' `---'  `--'  `--' `---' `--''--' `--`--'`--'   .-'  /      
+                                                                          `---'
+                                                                          
+                [ 1 ]   Generate the dictionary
+                [ 2 ]   Change saving direction ({})
+                    
+                [ 0 ]   Exit 
+        """.format(savingDir))
 
+    while not ("0" <= choice <= "2"):
+        # TODO: Include the whole printout in the loop
+        choice = input("\t\t\tYour choice:  ")
+    return choice
 
-# Saving the combinations to a file
+# chset = "abcdefghijklmnopqrstuwxyz"
+# generate_var_length_combinations(chset, 3, 5)
+ch = menu()
 
-
-
-
+#  TODO: Finish the menu
+#  TODO: Saving the combinations to file
